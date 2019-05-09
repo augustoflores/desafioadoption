@@ -127,7 +127,6 @@ function validateAdoptionForm() {
   let phone = validateInput("#adoptant-phone");
   let email = validateInput("#adoptant-email");
   if (name && phone && email) {
-
     let adoptantObject = {
       name,
       phone,
@@ -144,7 +143,7 @@ function adoptar() {
     $("#submit").removeClass("animated shake faster").width('100%').addClass("animated shake faster")
   } else {
     $("#submit").fadeOut();
-    deleteData(petid);
+    //deleteData(petid);
     $("form").append(`
     <div class="alert alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
     <span class="animated infinite zoomIn heartBeat delay-2s">&hearts;</span><br>
