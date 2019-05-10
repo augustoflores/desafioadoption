@@ -1,4 +1,5 @@
 var petid="";
+
 function getData() {
   $.ajax({
     url: "https://jquerycrud-ed8dc.firebaseio.com/agus.json",
@@ -25,8 +26,9 @@ function printData(dataToPrint) {
           </div>`
       )
   })
+  //console.log()
   $(".adopt").click((event) => {
-      id = $(event.target).parent().parent().parent().data("id");
+      petid = $(event.target).parent().parent().parent().data("id");
       loadHTML("./views/adopt.html");
       //deleteData(id);
       //$(event.target).parent().parent().parent().fadeOut("fast", () => {});
@@ -143,7 +145,7 @@ function adoptar() {
     $("#submit").removeClass("animated shake faster").width('100%').addClass("animated shake faster")
   } else {
     $("#submit").fadeOut();
-    //deleteData(petid);
+    deleteData(petid);
     $("form").append(`
     <div class="alert alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
     <span class="animated infinite zoomIn heartBeat delay-2s">&hearts;</span><br>
