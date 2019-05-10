@@ -126,7 +126,7 @@ function enviar() {
     $("#submit").removeClass("animated shake faster").width('100%').addClass("animated shake faster")
   } else {
     $("#submit").fadeOut();
-    $("form").append('<div class="alert alert-success  animated bounceInDown" role="alert">Gracias buen hombre</div>')
+    $("form").append('<div class="alert text-center alert-success  animated bounceInDown" role="alert">Gracias buen hombre</div>')
     postData(result)
     setTimeout(()=> {
       loadHTML("./views/index.html")
@@ -160,7 +160,7 @@ function adoptar() {
 }
 function afterDelete() {
   $("form").append(`
-  <div class="alert alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
+  <div class="alert text-center alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
   <span class="animated infinite zoomIn heartBeat delay-2s">&hearts;</span><br>
   Nos pondermos en contacto contigo<br>
   <a href="javascript:" onclick="loadHTML('./views/index.html');">Ver mas adopciones</a>
