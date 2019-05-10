@@ -29,9 +29,9 @@ function printData(dataToPrint) {
   //console.log()
   $(".adopt").click((event) => {
       petid = $(event.target).parent().parent().parent().data("id");
-      loadHTML("./views/adopt.html");
-      //deleteData(id);
-      //$(event.target).parent().parent().parent().fadeOut("fast", () => {});
+      let img=$(event.target).parent().parent().parent().find("img")[0];
+      //let txt=$(event.target).parent().parent().parent().find("card-title")[0];
+      loadHTML("./views/adopt.html",img);
   });
 }
 
@@ -52,26 +52,36 @@ function updateData() {
   });
 }
 
-function deleteData(id) {
+function deleteData(id,callBack) {
   $.ajax({
     url: `https://jquerycrud-ed8dc.firebaseio.com/agus/${id}.json`,
     type: 'DELETE',
     success: function (response) {
-      console.log(response)
+      if(callBack){
+        callBack()
+      }
     }
   });
 }
 
-function loadHTML(file) {
+function loadHTML(file,img,txt) {
   $("#content-wrapper").removeClass("animated fadeInRight faster");
   $("#content-wrapper").width('auto')
   $("#content-wrapper").load(file, () => {
     getData();
+    if(img){
+      $(".adoptimgcontainer").append(img)
+    }
+    if(txt){
+      $(".adoptimgcontainer").append(txt)
+    }
 
   })
   $("#content-wrapper").addClass("animated fadeInRight faster");
 }
 loadHTML("./views/index.html");
+
+
 
 $(".nav-item").click((event) => {
   event.preventDefault();
@@ -145,14 +155,15 @@ function adoptar() {
     $("#submit").removeClass("animated shake faster").width('100%').addClass("animated shake faster")
   } else {
     $("#submit").fadeOut();
-    deleteData(petid);
-    $("form").append(`
-    <div class="alert alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
-    <span class="animated infinite zoomIn heartBeat delay-2s">&hearts;</span><br>
-    Nos pondermos en contacto contigo<br>
-    <a href="javascript:" onclick="loadHTML('./views/index.html');">Ver mas adopciones</a>
-    </div>`
-    )
-
+    deleteData(petid,afterDelete);
   }
+}
+function afterDelete() {
+  $("form").append(`
+  <div class="alert alert-success animated bounceInDown" role="alert">Gracias de todo CORAZON
+  <span class="animated infinite zoomIn heartBeat delay-2s">&hearts;</span><br>
+  Nos pondermos en contacto contigo<br>
+  <a href="javascript:" onclick="loadHTML('./views/index.html');">Ver mas adopciones</a>
+  </div>`
+  )
 }
